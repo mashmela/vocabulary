@@ -16,13 +16,22 @@ function App() {
     [],
   );
 
+  const handleButtonClick = React.useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      console.log(event.target);
+      console.log(value);
+      console.log(valueTranslate);
+    },
+    [value, valueTranslate],
+  );
+
   return (
     <div>
       <div className={wrapper}>
         <div className={translate}>
           <input value={value} onChange={handleInputChange} />
           <input value={valueTranslate} onChange={handleInputTranslateChange} />
-          <button>Add</button>
+          <button onClick={handleButtonClick}>Add</button>
         </div>
       </div>
     </div>
