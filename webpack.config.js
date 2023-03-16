@@ -57,6 +57,13 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.ttf$/i,
+        exclude: /node_modules/,
+        use: {
+          loader: "url-loader",
+        },
+      },
     ],
   },
 };

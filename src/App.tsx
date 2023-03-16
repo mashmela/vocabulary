@@ -5,8 +5,8 @@ import {
   wrapper,
   vocabulary,
   word,
-  inputWords,
-  buttonAdd,
+  inputStyle,
+  buttonStyle,
   imageDelete,
   vocabularyWrapper,
   tegs,
@@ -17,9 +17,10 @@ import {
 function App() {
   const [value, setValueInput] = React.useState("");
   const [valueTranslate, setTranslateValueInput] = React.useState("");
-  const [newTranslate, setNewTranslate] = React.useState<storageTranslate[]>([
-    { first: "cat", second: "кошка" },
-  ]);
+  const [newTranslate, setNewTranslate] = React.useState<storageTranslate[]>(() => {
+    const storageData = localStorage.getItem("data");
+    return storageData ? JSON.parse(storageData) : [];
+  });
 
   interface storageTranslate {
     first: string;
@@ -38,9 +39,11 @@ function App() {
 
   const handleButtonClick = React.useCallback(() => {
     if (value && valueTranslate) {
-      setNewTranslate([...newTranslate, { first: value, second: valueTranslate }]);
+      const newStorage = [...newTranslate, { first: value, second: valueTranslate }];
+      setNewTranslate(newStorage);
       setValueInput("");
       setTranslateValueInput("");
+      localStorage.setItem("data", JSON.stringify(newStorage));
     }
   }, [newTranslate, value, valueTranslate]);
 
@@ -49,6 +52,7 @@ function App() {
       const newStorage = [...newTranslate];
       newStorage.splice(id, 1);
       setNewTranslate(newStorage);
+      localStorage.setItem("data", JSON.stringify(newStorage));
     },
     [newTranslate],
   );
@@ -58,19 +62,19 @@ function App() {
       <div className={wrapper}>
         <div className={translate}>
           <input
-            className={inputWords}
+            className={inputStyle}
             value={value}
             placeholder={"Слово"}
             onChange={handleInputWordChange}
           />
           <input
-            className={inputWords}
+            className={inputStyle}
             value={valueTranslate}
             placeholder={"Перевод"}
             onChange={handleInputTranslateChange}
           />
-          <button className={buttonAdd} onClick={handleButtonClick}>
-            Add
+          <button className={buttonStyle} onClick={handleButtonClick}>
+            Добавить
           </button>
         </div>
         <div className={vocabularyWrapper}>

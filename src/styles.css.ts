@@ -1,4 +1,18 @@
-import { style } from "@vanilla-extract/css";
+import { style, globalStyle, globalFontFace } from "@vanilla-extract/css";
+
+import RobotoFont from "./Roboto-Regular.ttf";
+
+globalFontFace("Roboto", {
+  src: `url('${RobotoFont}') format('ttf')`,
+});
+
+globalStyle("body", {
+  margin: "0",
+  minHeight: "100vh",
+  background: "#FCFCFF",
+  fontSize: "14px",
+  fontFamily: "'Roboto', sans-serif",
+});
 
 export const wrapper = style({
   display: "flex",
@@ -8,7 +22,6 @@ export const wrapper = style({
   minWidth: "500px",
   maxWidth: "1000px",
   width: "100vw",
-  fontFamily: "Inter",
 });
 
 export const translate = style({
@@ -18,14 +31,16 @@ export const translate = style({
   justifyContent: "space-between",
 });
 
-export const inputWords = style({
+export const inputStyle = style({
   border: "none",
   borderBottom: "1px solid black",
   fontSize: "24px",
   outline: "0 !important",
+  background: "none",
+  fontFamily: "'Roboto', sans-serif",
 });
 
-export const buttonAdd = style({
+export const buttonStyle = style({
   border: "none",
   fontSize: "24px",
   width: "200px",
@@ -34,6 +49,7 @@ export const buttonAdd = style({
   borderRadius: "30px",
   cursor: "pointer",
   transition: "0.5s",
+  fontFamily: "'Roboto', sans-serif",
   ":hover": {
     color: "white",
     background: "black",
